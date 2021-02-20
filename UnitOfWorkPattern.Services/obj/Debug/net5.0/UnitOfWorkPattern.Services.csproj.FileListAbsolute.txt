@@ -1,0 +1,15 @@
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\bin\Debug\net5.0\UnitOfWorkPattern.Services.deps.json
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\bin\Debug\net5.0\UnitOfWorkPattern.Services.dll
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\bin\Debug\net5.0\ref\UnitOfWorkPattern.Services.dll
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\bin\Debug\net5.0\UnitOfWorkPattern.Services.pdb
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\bin\Debug\net5.0\UnitOfWorkPattern.Repository.dll
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\bin\Debug\net5.0\UnitOfWorkPattern.Repository.pdb
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\obj\Debug\net5.0\UnitOfWorkPattern.Services.csprojAssemblyReference.cache
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\obj\Debug\net5.0\UnitOfWorkPattern.Services.GeneratedMSBuildEditorConfig.editorconfig
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\obj\Debug\net5.0\UnitOfWorkPattern.Services.AssemblyInfoInputs.cache
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\obj\Debug\net5.0\UnitOfWorkPattern.Services.AssemblyInfo.cs
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\obj\Debug\net5.0\UnitOfWorkPattern.Services.csproj.CoreCompileInputs.cache
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\obj\Debug\net5.0\UnitOfWorkPattern.Services.csproj.CopyComplete
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\obj\Debug\net5.0\UnitOfWorkPattern.Services.dll
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\obj\Debug\net5.0\ref\UnitOfWorkPattern.Services.dll
+M:\Project_SWDCarRental\UnitOfWorkPattern.Services\obj\Debug\net5.0\UnitOfWorkPattern.Services.pdb
