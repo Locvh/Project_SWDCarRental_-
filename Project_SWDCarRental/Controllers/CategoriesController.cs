@@ -6,102 +6,50 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project_SWDCarRental.Models;
+using UnitOfWorkPattern.Services.Servies;
 
 namespace Project_SWDCarRental.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class CategoriesController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
     {
-        private readonly CarRentalDBContext _context;
+        private readonly ICategoryService _CategoryService;
 
-        public CategoriesController(CarRentalDBContext context)
+
+        public CategoriesController(ICategoryService CategoryService)
         {
-            _context = context;
+            _CategoryService = CategoryService;
         }
-
-        // GET: api/Categories
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
-        {
-            return await _context.Categories.ToListAsync();
-        }
-
-        // GET: api/Categories/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int id)
-        {
-            var category = await _context.Categories.FindAsync(id);
-
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return category;
-        }
-
-        // PUT: api/Categories/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
-        {
-            if (id != category.CateId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(category).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Categories
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public async Task<ActionResult<Category>> CreateCategory([FromBody] Category Category)
         {
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
+            return await _CategoryService.AddCategoryAsync(Category);
+        }
+        [HttpGet]
+        public async Task<ActionResult<List<Category>>> GetAllCategorys()
+        {
 
-            return CreatedAtAction("GetCategory", new { id = category.CateId }, category);
+            return await _CategoryService.GetAllCategorysAsync();
         }
 
-        // DELETE: api/Categories/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(int id)
+
+        [HttpGet("GetById")]
+        public async Task<ActionResult<Category>> GetCategoryById(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return await _CategoryService.GetCategoryByIdAsync(id);
         }
 
-        private bool CategoryExists(int id)
+        [HttpPost("UpdateId")]
+        public async Task<ActionResult<Category>> PostCategoryById(int id, [FromBody] Category Category)
         {
-            return _context.Categories.Any(e => e.CateId == id);
+            return await _CategoryService.UpdateCategoryAsync(id, Category);
+        }
+
+        [HttpGet("DeleteAllCategoryById")]
+        public async Task<ActionResult<Category>> DeleteAllCategoryById(int id)
+        {
+            return await _CategoryService.DeleteAllCategoryAsync(id);
         }
     }
 }

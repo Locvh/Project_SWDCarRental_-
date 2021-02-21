@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace UnitOfWorkPattern.Repository.Repositories
 {
-    public interface IUnitOfWork
+    public interface IGarageRepository : IRepository<Garage>
     {
-        IRepository<Account> Account { get; }
-        IRepository<User> User { get; }
+        Task<Garage> GetGarageByIdAsync(int id);
 
-        IRepository<Category> Category { get; }
-        IRepository<Garage> Garage { get; }
+        Task<List<Garage>> GetAllGaragesAsync();
+
+
+        Task<IEnumerable<Garage>> search(string Address);
     }
 }

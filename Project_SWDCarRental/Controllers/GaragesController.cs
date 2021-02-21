@@ -6,102 +6,57 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project_SWDCarRental.Models;
+using UnitOfWorkPattern.Services.Servies;
 
 namespace Project_SWDCarRental.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GaragesController : ControllerBase
+    public class GaragesController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
     {
-        private readonly CarRentalDBContext _context;
+        private readonly IGarageService _GarageService;
 
-        public GaragesController(CarRentalDBContext context)
+
+        public GaragesController(IGarageService GarageService)
         {
-            _context = context;
+            _GarageService = GarageService;
         }
-
-        // GET: api/Garages
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Garage>>> GetGarages()
-        {
-            return await _context.Garages.ToListAsync();
-        }
-
-        // GET: api/Garages/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Garage>> GetGarage(int id)
-        {
-            var garage = await _context.Garages.FindAsync(id);
-
-            if (garage == null)
-            {
-                return NotFound();
-            }
-
-            return garage;
-        }
-
-        // PUT: api/Garages/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutGarage(int id, Garage garage)
-        {
-            if (id != garage.GarageId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(garage).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GarageExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Garages
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Garage>> PostGarage(Garage garage)
+        public async Task<ActionResult<Garage>> CreateGarage([FromBody] Garage Garage)
         {
-            _context.Garages.Add(garage);
-            await _context.SaveChangesAsync();
+            return await _GarageService.AddGarageAsync(Garage);
+        }
+        [HttpGet]
+        public async Task<ActionResult<List<Garage>>> GetAllGarages()
+        {
 
-            return CreatedAtAction("GetGarage", new { id = garage.GarageId }, garage);
+            return await _GarageService.GetAllGaragesAsync();
         }
 
-        // DELETE: api/Garages/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGarage(int id)
+
+        [HttpGet("GetById")]
+        public async Task<ActionResult<Garage>> GetGarageById(int id)
         {
-            var garage = await _context.Garages.FindAsync(id);
-            if (garage == null)
-            {
-                return NotFound();
-            }
-
-            _context.Garages.Remove(garage);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return await _GarageService.GetGarageByIdAsync(id);
         }
 
-        private bool GarageExists(int id)
+
+        [HttpGet("SearchByLikeAddress")]
+        public async Task<IEnumerable<Garage>> SearchByLikeName(string address)
         {
-            return _context.Garages.Any(e => e.GarageId == id);
+            return await _GarageService.Search(address);
+        }
+
+        [HttpPost("UpdateId")]
+        public async Task<ActionResult<Garage>> PostGarageById(int id, [FromBody] Garage Garage)
+        {
+            return await _GarageService.UpdateGarageAsync(id, Garage);
+        }
+
+        [HttpGet("DeleteAllGarageById")]
+        public async Task<ActionResult<Garage>> DeleteAllGarageById(int id)
+        {
+            return await _GarageService.DeleteAllGarageAsync(id);
         }
     }
 }

@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace UnitOfWorkPattern.Repository.Repositories
 {
-    public interface IUnitOfWork
+   public interface ICategoryRepository : IRepository<Category>
     {
-        IRepository<Account> Account { get; }
-        IRepository<User> User { get; }
+        Task<Category> GetCategoryByIdAsync(int id);
 
-        IRepository<Category> Category { get; }
-        IRepository<Garage> Garage { get; }
+        Task<List<Category>> GetAllCategorysAsync();
+       
     }
 }
