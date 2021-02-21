@@ -83,13 +83,13 @@ namespace Project_SWDCarRental.Controllers
             return await _accountService.UpdateAccountAsync(id, account);
         }
 
-        [HttpGet("DeleteProductById")]
+        [HttpGet("DeleteAccountById")]
         public async Task<ActionResult<Account>> DeleteAccountById(string id)
         {
             return await _accountService.DeleteAccountAsync(id);
         }
 
-        [HttpGet("DeleteAllProductById")]
+        [HttpGet("DeleteAllAccountById")]
         public async Task<ActionResult<Account>> DeleteAllAccountById(string id)
         {
             return await _accountService.DeleteAllAccountAsync(id);

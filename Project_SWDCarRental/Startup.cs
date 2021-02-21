@@ -37,10 +37,11 @@ namespace Project_SWDCarRental
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddTransient<IAccountRepository, AccountRepository>();
-
+            services.AddTransient<IUserRepository, UserRepository>();
 
 
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

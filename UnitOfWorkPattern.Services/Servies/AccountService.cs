@@ -26,7 +26,18 @@ namespace UnitOfWorkPattern.Services.Servies
         }
         public async Task<Account> AddAccountAsync(Account newAccount)
         {
-            return await _accountRepository.AddAsync(newAccount);
+            Account account = new Account
+            {
+                AccountId=newAccount.AccountId,
+                AccountName=newAccount.AccountName,
+                Role="user",
+                Status=true,
+                GoogleId=newAccount.GoogleId,
+                Password=newAccount.Password
+
+            };
+           
+            return await _accountRepository.AddAsync(account);
         }
 
 
