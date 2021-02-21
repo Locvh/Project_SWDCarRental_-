@@ -6,102 +6,83 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project_SWDCarRental.Models;
+using UnitOfWorkPattern.Repository.Models;
+using UnitOfWorkPattern.Services.Servies;
 
 namespace Project_SWDCarRental.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehiclesController : ControllerBase
+    public class VehiclesController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
     {
-        private readonly CarRentalDBContext _context;
+        private readonly IVehicleService _VehicleService;
 
-        public VehiclesController(CarRentalDBContext context)
+
+        public VehiclesController(IVehicleService VehicleService)
         {
-            _context = context;
+            _VehicleService = VehicleService;
         }
-
-        // GET: api/Vehicles
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles()
-        {
-            return await _context.Vehicles.ToListAsync();
-        }
-
-        // GET: api/Vehicles/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Vehicle>> GetVehicle(int id)
-        {
-            var vehicle = await _context.Vehicles.FindAsync(id);
-
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
-
-            return vehicle;
-        }
-
-        // PUT: api/Vehicles/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutVehicle(int id, Vehicle vehicle)
-        {
-            if (id != vehicle.VelNo)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(vehicle).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!VehicleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Vehicles
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Vehicle>> PostVehicle(Vehicle vehicle)
+        public async Task<ActionResult<Vehicle>> CreateVehicle([FromBody] Vehicle Vehicle)
         {
-            _context.Vehicles.Add(vehicle);
-            await _context.SaveChangesAsync();
+            return await _VehicleService.AddVehicleAsync(Vehicle);
+        }
+        [HttpGet]
+        public async Task<ActionResult<List<Vehicle>>> GetAllVehicles()
+        {
 
-            return CreatedAtAction("GetVehicle", new { id = vehicle.VelNo }, vehicle);
+            return await _VehicleService.GetAllVehiclesAsync();
         }
 
-        // DELETE: api/Vehicles/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVehicle(int id)
+        [HttpGet("GetStatusFalse")]
+        public async Task<ActionResult<List<Vehicle>>> GetAllVehiclesStatusFalseAsync()
         {
-            var vehicle = await _context.Vehicles.FindAsync(id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
 
-            _context.Vehicles.Remove(vehicle);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return await _VehicleService.GetAllVehiclesStatusFalseAsync();
         }
 
-        private bool VehicleExists(int id)
+        [HttpGet("GetPage")]
+        public async Task<ActionResult<List<Vehicle>>> GetAllVehiclesPage([FromQuery] Pagging pagging)
         {
-            return _context.Vehicles.Any(e => e.VelNo == id);
+
+            return await _VehicleService.GetAllVehiclesAsyncPage(pagging);
+        }
+        [HttpGet("GetPageFalse")]
+        public async Task<ActionResult<List<Vehicle>>> GetAllVehiclesAsyncPageStatusFalse([FromQuery] Pagging pagging)
+        {
+
+            return await _VehicleService.GetAllVehiclesAsyncPageStatusFalse(pagging);
+        }
+
+        [HttpGet("GetById")]
+        public async Task<ActionResult<Vehicle>> GetVehicleById(int id)
+        {
+            return await _VehicleService.GetVehicleByIdAsync(id);
+        }
+
+
+        [HttpGet("CheckDate")]
+        public async Task<IEnumerable<Vehicle>> SearchByLikeName(int seat , DateTime checkIn,DateTime checkOut)
+        {
+            return await _VehicleService.Search(seat, checkIn,checkOut);
+        }
+
+        [HttpPost("UpdateId")]
+        public async Task<ActionResult<Vehicle>> PostVehicleById(int id, [FromBody] Vehicle Vehicle)
+        {
+            return await _VehicleService.UpdateVehicleAsync(id, Vehicle);
+        }
+
+        [HttpGet("DeleteVehicleById")]
+        public async Task<ActionResult<Vehicle>> DeleteVehicleById(int id)
+        {
+            return await _VehicleService.DeleteVehicleAsync(id);
+        }
+
+        [HttpGet("DeleteAllVehicleById")]
+        public async Task<ActionResult<Vehicle>> DeleteAllVehicleById(int id)
+        {
+            return await _VehicleService.DeleteAllVehicleAsync(id);
         }
     }
 }

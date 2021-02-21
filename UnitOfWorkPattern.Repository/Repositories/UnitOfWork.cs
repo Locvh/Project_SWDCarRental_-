@@ -14,6 +14,7 @@ namespace UnitOfWorkPattern.Repository.Repositories
         private Repository<User> _User;
         private Repository<Garage> _Garage;
         private Repository<Category> _Category;
+        private Repository<Vehicle> _Vehicle;
         public UnitOfWork(CarRentalDBContext baseContext)
         {
             _baseContext = baseContext;
@@ -47,6 +48,13 @@ namespace UnitOfWorkPattern.Repository.Repositories
             get
             {
                 return _Category ?? (_Category = new Repository<Category>(_baseContext));
+            }
+        }
+        public IRepository<Vehicle> Vehicle
+        {
+            get
+            {
+                return _Vehicle ?? (_Vehicle = new Repository<Vehicle>(_baseContext));
             }
         }
     }

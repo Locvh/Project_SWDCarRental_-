@@ -40,12 +40,13 @@ namespace Project_SWDCarRental
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IGarageRepository, GarageRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-
+            services.AddTransient<IVehicleRepository, VehicleRepository>();
 
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGarageService, GarageService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IVehicleService, VehicleService>();
 
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
