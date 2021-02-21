@@ -16,5 +16,8 @@ namespace UnitOfWorkPattern.Repository.Repositories
         IRepository<Garage> Garage { get; }
 
         IRepository<Vehicle> Vehicle { get; }
+        IRepository<Booking> Booking { get; }
+
+        IRepository<BookingDetail> BookingDetail { get; }
     }
 }

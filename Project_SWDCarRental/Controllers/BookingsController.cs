@@ -6,102 +6,44 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project_SWDCarRental.Models;
+using UnitOfWorkPattern.Services.Servies;
 
 namespace Project_SWDCarRental.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingsController : ControllerBase
+    public class BookingsController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
     {
-        private readonly CarRentalDBContext _context;
+        private readonly IBookingService _BookingService;
 
-        public BookingsController(CarRentalDBContext context)
+
+        public BookingsController(IBookingService BookingService)
         {
-            _context = context;
+            _BookingService = BookingService;
         }
-
-        // GET: api/Bookings
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
-        {
-            return await _context.Bookings.ToListAsync();
-        }
-
-        // GET: api/Bookings/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Booking>> GetBooking(int id)
-        {
-            var booking = await _context.Bookings.FindAsync(id);
-
-            if (booking == null)
-            {
-                return NotFound();
-            }
-
-            return booking;
-        }
-
-        // PUT: api/Bookings/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBooking(int id, Booking booking)
-        {
-            if (id != booking.ResId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(booking).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookingExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Bookings
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Booking>> PostBooking(Booking booking)
+        public async Task<ActionResult<Booking>> CreateBooking([FromBody] Booking Booking)
         {
-            _context.Bookings.Add(booking);
-            await _context.SaveChangesAsync();
+            return await _BookingService.AddBookingAsync(Booking);
+        }
+        [HttpGet]
+        public async Task<ActionResult<List<Booking>>> GetAllBookings()
+        {
 
-            return CreatedAtAction("GetBooking", new { id = booking.ResId }, booking);
+            return await _BookingService.GetAllBookingsAsync();
         }
 
-        // DELETE: api/Bookings/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBooking(int id)
+
+        [HttpGet("GetById")]
+        public async Task<ActionResult<Booking>> GetBookingById(int id)
         {
-            var booking = await _context.Bookings.FindAsync(id);
-            if (booking == null)
-            {
-                return NotFound();
-            }
-
-            _context.Bookings.Remove(booking);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return await _BookingService.GetBookingByIdAsync(id);
         }
 
-        private bool BookingExists(int id)
+        [HttpGet("DeleteAllBookingById")]
+        public async Task<ActionResult<Booking>> DeleteAllBookingById(int id)
         {
-            return _context.Bookings.Any(e => e.ResId == id);
+            return await _BookingService.DeleteAllBookingAsync(id);
         }
     }
 }

@@ -6,102 +6,50 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project_SWDCarRental.Models;
+using UnitOfWorkPattern.Services.Servies;
 
 namespace Project_SWDCarRental.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingDetailsController : ControllerBase
+    public class BookingDetailsController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
     {
-        private readonly CarRentalDBContext _context;
+        private readonly IBookingDetailService _BookingDetailService;
 
-        public BookingDetailsController(CarRentalDBContext context)
+
+        public BookingDetailsController(IBookingDetailService BookingDetailService)
         {
-            _context = context;
+            _BookingDetailService = BookingDetailService;
         }
-
-        // GET: api/BookingDetails
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookingDetail>>> GetBookingDetails()
-        {
-            return await _context.BookingDetails.ToListAsync();
-        }
-
-        // GET: api/BookingDetails/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<BookingDetail>> GetBookingDetail(int id)
-        {
-            var bookingDetail = await _context.BookingDetails.FindAsync(id);
-
-            if (bookingDetail == null)
-            {
-                return NotFound();
-            }
-
-            return bookingDetail;
-        }
-
-        // PUT: api/BookingDetails/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBookingDetail(int id, BookingDetail bookingDetail)
-        {
-            if (id != bookingDetail.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(bookingDetail).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookingDetailExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/BookingDetails
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<BookingDetail>> PostBookingDetail(BookingDetail bookingDetail)
+        public async Task<ActionResult<BookingDetail>> CreateBookingDetail([FromBody] BookingDetail BookingDetail)
         {
-            _context.BookingDetails.Add(bookingDetail);
-            await _context.SaveChangesAsync();
+            return await _BookingDetailService.AddBookingDetailAsync(BookingDetail);
+        }
+        [HttpGet]
+        public async Task<ActionResult<List<BookingDetail>>> GetAllBookingDetails()
+        {
 
-            return CreatedAtAction("GetBookingDetail", new { id = bookingDetail.Id }, bookingDetail);
+            return await _BookingDetailService.GetAllBookingDetailsAsync();
         }
 
-        // DELETE: api/BookingDetails/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBookingDetail(int id)
+
+        [HttpGet("GetById")]
+        public async Task<ActionResult<BookingDetail>> GetBookingDetailById(int id)
         {
-            var bookingDetail = await _context.BookingDetails.FindAsync(id);
-            if (bookingDetail == null)
-            {
-                return NotFound();
-            }
-
-            _context.BookingDetails.Remove(bookingDetail);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return await _BookingDetailService.GetBookingDetailByIdAsync(id);
         }
 
-        private bool BookingDetailExists(int id)
+        [HttpPost("UpdateId")]
+        public async Task<ActionResult<BookingDetail>> PostBookingDetailById(int id, [FromBody] BookingDetail BookingDetail)
         {
-            return _context.BookingDetails.Any(e => e.Id == id);
+            return await _BookingDetailService.UpdateBookingDetailAsync(id, BookingDetail);
+        }
+
+        [HttpGet("DeleteAllBookingDetailById")]
+        public async Task<ActionResult<BookingDetail>> DeleteAllBookingDetailById(int id)
+        {
+            return await _BookingDetailService.DeleteAllBookingDetailAsync(id);
         }
     }
 }
