@@ -10,39 +10,33 @@ using UnitOfWorkPattern.Repository.Models;
 
 namespace UnitOfWorkPattern.Repository.Repositories
 {
-    public class AccountRepository : Repository<Account>, IAccountRepository
+   public class UserRepository : Repository<User>, IUserRepository
     {
         CarRentalDBContext CarRentalContext;
 
-        public AccountRepository(CarRentalDBContext CarRentalContext) : base(CarRentalContext)
+        public UserRepository(CarRentalDBContext CarRentalContext) : base(CarRentalContext)
         {
             this.CarRentalContext = CarRentalContext;
         }
 
-        public ActionResult<Account> checkLogin(string username, string password)
+
+        public async Task<User> GetUserByIdAsync(int id)
         {
-            object data = GetAll().Where(x => x.AccountName == username && x.Password == password).Select(x => x.Role);
-            return Utils.success(data);
+            return await GetAll().FirstOrDefaultAsync(x => x.UserId == id);
         }
 
-
-        public async Task<Account> GetAccountByIdAsync(string id)
-        {
-            return await GetAll().FirstOrDefaultAsync(x => x.AccountId == id);
-        }
-
-        public async Task<List<Account>> GetAllAccountsAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
             return await GetAll().Where(x => x.Status == true).ToListAsync();
         }
 
-        public async Task<List<Account>> GetAllAccountsStatusFalseAsync()
+        public async Task<List<User>> GetAllUsersStatusFalseAsync()
         {
             return await GetAll().Where(x => x.Status == false).ToListAsync();
         }
 
 
-        public async Task<List<Account>> GetAllAccountsAsyncPage(Pagging pagging)
+        public async Task<List<User>> GetAllUsersAsyncPage(Pagging pagging)
         {
             /*Giả sử chúng ta cần lấy kết quả cho trang thứ ba của trang web, đếm 20 là số kết quả chúng ta muốn . 
              Điều đó có nghĩa là chúng ta muốn bỏ qua (( 3 - 1) * 20 ) = 40 kết quả đầu tiên, sau đó lấy 20 kết quả tiếp theo và trả lại chúng cho người gọi.*/
@@ -54,7 +48,7 @@ namespace UnitOfWorkPattern.Repository.Repositories
                .ToListAsync();
         }
 
-        public async Task<List<Account>> GetAllAccountsAsyncPageStatusFalse(Pagging pagging)
+        public async Task<List<User>> GetAllUsersAsyncPageStatusFalse(Pagging pagging)
         {
             /*Giả sử chúng ta cần lấy kết quả cho trang thứ ba của trang web, đếm 20 là số kết quả chúng ta muốn . 
              Điều đó có nghĩa là chúng ta muốn bỏ qua (( 3 - 1) * 20 ) = 40 kết quả đầu tiên, sau đó lấy 20 kết quả tiếp theo và trả lại chúng cho người gọi.*/
@@ -66,19 +60,18 @@ namespace UnitOfWorkPattern.Repository.Repositories
                .ToListAsync();
         }
 
-        //public async Task<IEnumerable<Account>> search(string fullname)
-        //{
-        //    IQueryable<Account> query = CarRentalContext.Accounts;
+        public async Task<IEnumerable<User>> search(string fullname)
+        {
+            IQueryable<User> query = CarRentalContext.Users;
 
-        //    if (!string.IsNullOrEmpty(fullname))
-        //    {
-        //        query = query.Where(x => x.FullName.ToLower().Contains(fullname.Trim().ToLower()));
-        //    }
-        //    return await query.ToListAsync();
-        //}
+            if (!string.IsNullOrEmpty(fullname))
+            {
+                query = query.Where(x => x.FullName.ToLower().Contains(fullname.Trim().ToLower()));
+            }
+            return await query.ToListAsync();
+        }
 
 
     }
+
 }
-
-

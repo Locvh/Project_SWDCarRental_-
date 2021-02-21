@@ -29,6 +29,7 @@ namespace UnitOfWorkPattern.Services.Servies
             return await _accountRepository.AddAsync(newAccount);
         }
 
+
         public ActionResult<Account> checkLogin(string username, string password)
         {
 
@@ -60,9 +61,19 @@ namespace UnitOfWorkPattern.Services.Servies
             return await _accountRepository.GetAllAccountsAsync();
         }
 
-        public async Task<List<Account>> GetAllAccountsAsync1(Pagging pagging)
+        public async Task<List<Account>> GetAllAccountsStatusFalseAsync()
         {
-            return await _accountRepository.GetAllAccountsAsync1(pagging);
+            return await _accountRepository.GetAllAccountsStatusFalseAsync();
+        }
+
+        public async Task<List<Account>> GetAllAccountsAsyncPage(Pagging pagging)
+        {
+            return await _accountRepository.GetAllAccountsAsyncPage(pagging);
+        }
+
+        public async Task<List<Account>> GetAllAccountsAsyncPageStatusFalse(Pagging pagging)
+        {
+            return await _accountRepository.GetAllAccountsAsyncPageStatusFalse(pagging);
         }
 
         //public async Task<IEnumerable<Account>> Search(string fullname)

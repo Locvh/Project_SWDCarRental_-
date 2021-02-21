@@ -18,8 +18,10 @@ namespace UnitOfWorkPattern.Repository.Repositories
 
         Task<List<Account>> GetAllAccountsAsync();
 
-        Task<List<Account>> GetAllAccountsAsync1(Pagging pagging);
+        Task<List<Account>> GetAllAccountsStatusFalseAsync();
+        Task<List<Account>> GetAllAccountsAsyncPage(Pagging pagging);
 
+        Task<List<Account>> GetAllAccountsAsyncPageStatusFalse(Pagging pagging);
 
         //Task<IEnumerable<Account>> search(string fullname);
 

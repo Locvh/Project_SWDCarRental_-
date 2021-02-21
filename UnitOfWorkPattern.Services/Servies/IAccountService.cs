@@ -12,11 +12,15 @@ namespace UnitOfWorkPattern.Services.Servies
     public interface IAccountService
     {
         Task<List<Account>> GetAllAccountsAsync();
+
+        Task<List<Account>> GetAllAccountsStatusFalseAsync();
         Task<Account> GetAccountByIdAsync(string id);
 
         //Task<IEnumerable<Account>> checkLogin(string username, string password);
         //Task<IEnumerable<Account>> Search(string fullname);
-        Task<List<Account>> GetAllAccountsAsync1(Pagging pagging);
+        Task<List<Account>> GetAllAccountsAsyncPage(Pagging pagging);
+        Task<List<Account>> GetAllAccountsAsyncPageStatusFalse(Pagging pagging);
+
         Task<Account> AddAccountAsync(Account newAccount);
         ActionResult<Account> checkLogin(string username, string password);
         Task<Account> UpdateAccountAsync(string id, Account newAccount);

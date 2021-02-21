@@ -34,11 +34,24 @@ namespace Project_SWDCarRental.Controllers
             return await _accountService.GetAllAccountsAsync();
         }
 
-        [HttpGet("getPage")]
-        public async Task<ActionResult<List<Account>>> GetAllAccounts1([FromQuery] Pagging pagging)
+        [HttpGet("GetStatusFalse")]
+        public async Task<ActionResult<List<Account>>> GetAllAccountsStatusFalseAsync()
         {
 
-            return await _accountService.GetAllAccountsAsync1(pagging);
+            return await _accountService.GetAllAccountsStatusFalseAsync();
+        }
+
+        [HttpGet("GetPage")]
+        public async Task<ActionResult<List<Account>>> GetAllAccountsPage([FromQuery] Pagging pagging)
+        {
+
+            return await _accountService.GetAllAccountsAsyncPage(pagging);
+        }
+        [HttpGet("GetPageFalse")]
+        public async Task<ActionResult<List<Account>>> GetAllAccountsAsyncPageStatusFalse([FromQuery] Pagging pagging)
+        {
+
+            return await _accountService.GetAllAccountsAsyncPageStatusFalse(pagging);
         }
 
         [HttpGet("GetById")]
