@@ -10,23 +10,23 @@ using UnitOfWorkPattern.Services.Servies;
 
 namespace Project_SWDCarRental.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class GaragesController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
+    public class garagesController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
     {
         private readonly IGarageService _GarageService;
 
 
-        public GaragesController(IGarageService GarageService)
+        public garagesController(IGarageService GarageService)
         {
             _GarageService = GarageService;
         }
-        [HttpPost]
+        [HttpPost("CreateGarage")]
         public async Task<ActionResult<Garage>> CreateGarage([FromBody] Garage Garage)
         {
             return await _GarageService.AddGarageAsync(Garage);
         }
-        [HttpGet]
+        [HttpGet("GetGarage")]
         public async Task<ActionResult<List<Garage>>> GetAllGarages()
         {
 

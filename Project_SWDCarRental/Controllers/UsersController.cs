@@ -11,35 +11,36 @@ using UnitOfWorkPattern.Services.Servies;
 
 namespace Project_SWDCarRental.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class UsersController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
+    public class usersController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
     {
         private readonly IUserService _UserService;
 
 
-        public UsersController(IUserService UserService)
+        public usersController(IUserService UserService)
         {
             _UserService = UserService;
         }
-        [HttpPost]
+        [HttpPost("CreateUser")]
         public async Task<ActionResult<User>> CreateUser([FromBody] User User)
         {
             return await _UserService.AddUserAsync(User);
         }
-        [HttpGet]
-        public async Task<ActionResult<List<User>>> GetAllUsers()
-        {
 
-            return await _UserService.GetAllUsersAsync();
-        }
+        //[HttpGet("GetUser")]
+        //public async Task<ActionResult<List<User>>> GetAllUsers()
+        //{
 
-        [HttpGet("GetStatusFalse")]
-        public async Task<ActionResult<List<User>>> GetAllUsersStatusFalseAsync()
-        {
+        //    return await _UserService.GetAllUsersAsync();
+        //}
 
-            return await _UserService.GetAllUsersStatusFalseAsync();
-        }
+        //[HttpGet("GetStatusFalse")]
+        //public async Task<ActionResult<List<User>>> GetAllUsersStatusFalseAsync()
+        //{
+
+        //    return await _UserService.GetAllUsersStatusFalseAsync();
+        //}
 
         [HttpGet("GetPage")]
         public async Task<ActionResult<List<User>>> GetAllUsersPage([FromQuery] Pagging pagging)

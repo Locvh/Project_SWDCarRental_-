@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitOfWorkPattern.Repository.Models;
 using UnitOfWorkPattern.Repository.Repositories;
 
 namespace UnitOfWorkPattern.Services.Servies
@@ -47,11 +48,15 @@ namespace UnitOfWorkPattern.Services.Servies
             return await _BookingDetailRepository.GetBookingDetailByIdAsync(id);
         }
 
-        public async Task<List<BookingDetail>> GetAllBookingDetailsAsync()
-        {
-            return await _BookingDetailRepository.GetAllBookingDetailsAsync();
-        }
+        //public async Task<List<BookingDetail>> GetAllBookingDetailsAsync()
+        //{
+        //    return await _BookingDetailRepository.GetAllBookingDetailsAsync();
+        //}
 
+        public async Task<List<BookingDetail>> GetAllBookingDetailsAsyncPage(Pagging pagging)
+        {
+            return await _BookingDetailRepository.GetAllBookingDetailsAsyncPage(pagging);
+        }
 
         public async Task<BookingDetail> UpdateBookingDetailAsync(int id, BookingDetail newBookingDetail)
         {

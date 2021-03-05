@@ -72,7 +72,13 @@ namespace Project_SWDCarRental
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Project_SWDCarRental v1"));
             }
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            //});
             app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitOfWorkPattern.Repository.Models;
 
 namespace UnitOfWorkPattern.Repository.Repositories
 {
@@ -11,7 +12,8 @@ namespace UnitOfWorkPattern.Repository.Repositories
     {
         Task<Booking> GetBookingByIdAsync(int id);
 
-        Task<List<Booking>> GetAllBookingsAsync();
+       // Task<List<Booking>> GetAllBookingsAsync();
 
+        Task<List<Booking>> GetAllBookingsAsyncPage(Pagging pagging);
     }
 }

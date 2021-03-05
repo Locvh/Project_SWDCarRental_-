@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitOfWorkPattern.Repository.Models;
 using UnitOfWorkPattern.Repository.Repositories;
 
 namespace UnitOfWorkPattern.Services.Servies
@@ -28,8 +29,8 @@ namespace UnitOfWorkPattern.Services.Servies
             {
                 Phone = newBooking.Phone,
                 FullName = newBooking.FullName,
-                AccountId = newBooking.AccountId
-
+                AccountId = newBooking.AccountId,
+                TotalPayment=newBooking.TotalPayment
             };
             return await _BookingRepository.AddAsync(Booking);
         }
@@ -46,9 +47,9 @@ namespace UnitOfWorkPattern.Services.Servies
             return await _BookingRepository.GetBookingByIdAsync(id);
         }
 
-        public async Task<List<Booking>> GetAllBookingsAsync()
+        public async Task<List<Booking>> GetAllBookingsAsyncPage(Pagging pagging)
         {
-            return await _BookingRepository.GetAllBookingsAsync();
+            return await _BookingRepository.GetAllBookingsAsyncPage(pagging);
         }
 
     }

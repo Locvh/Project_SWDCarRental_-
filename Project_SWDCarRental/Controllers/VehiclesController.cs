@@ -13,33 +13,33 @@ namespace Project_SWDCarRental.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehiclesController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
+    public class vehiclesController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
     {
         private readonly IVehicleService _VehicleService;
 
 
-        public VehiclesController(IVehicleService VehicleService)
+        public vehiclesController(IVehicleService VehicleService)
         {
             _VehicleService = VehicleService;
         }
-        [HttpPost]
+        [HttpPost("CreateVehicles")]
         public async Task<ActionResult<Vehicle>> CreateVehicle([FromBody] Vehicle Vehicle)
         {
             return await _VehicleService.AddVehicleAsync(Vehicle);
         }
-        [HttpGet]
-        public async Task<ActionResult<List<Vehicle>>> GetAllVehicles()
-        {
+        //[HttpGet("GetVehicles")]
+        //public async Task<ActionResult<List<Vehicle>>> GetAllVehicles()
+        //{
 
-            return await _VehicleService.GetAllVehiclesAsync();
-        }
+        //    return await _VehicleService.GetAllVehiclesAsync();
+        //}
 
-        [HttpGet("GetStatusFalse")]
-        public async Task<ActionResult<List<Vehicle>>> GetAllVehiclesStatusFalseAsync()
-        {
+        //[HttpGet("GetStatusFalse")]
+        //public async Task<ActionResult<List<Vehicle>>> GetAllVehiclesStatusFalseAsync()
+        //{
 
-            return await _VehicleService.GetAllVehiclesStatusFalseAsync();
-        }
+        //    return await _VehicleService.GetAllVehiclesStatusFalseAsync();
+        //}
 
         [HttpGet("GetPage")]
         public async Task<ActionResult<List<Vehicle>>> GetAllVehiclesPage([FromQuery] Pagging pagging)

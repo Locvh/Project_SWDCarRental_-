@@ -11,35 +11,35 @@ using UnitOfWorkPattern.Services.Servies;
 
 namespace Project_SWDCarRental.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class AccountsController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
+    public class accountsController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
     {
         private readonly IAccountService _accountService;
 
 
-        public AccountsController(IAccountService AccountService)
+        public accountsController(IAccountService AccountService)
         {
             _accountService = AccountService;
         }
-        [HttpPost]
+        [HttpPost("CreateAccount")]
         public async Task<ActionResult<Account>> CreateAccount([FromBody] Account account)
         {
             return await _accountService.AddAccountAsync(account);
         }
-        [HttpGet]
-        public async Task<ActionResult<List<Account>>> GetAllAccounts()
-        {
+        //[HttpGet]
+        //public async Task<ActionResult<List<Account>>> GetAllAccounts()
+        //{
 
-            return await _accountService.GetAllAccountsAsync();
-        }
+        //    return await _accountService.GetAllAccountsAsync();
+        //}
 
-        [HttpGet("GetStatusFalse")]
-        public async Task<ActionResult<List<Account>>> GetAllAccountsStatusFalseAsync()
-        {
+        //[HttpGet("GetStatusFalse")]
+        //public async Task<ActionResult<List<Account>>> GetAllAccountsStatusFalseAsync()
+        //{
 
-            return await _accountService.GetAllAccountsStatusFalseAsync();
-        }
+        //    return await _accountService.GetAllAccountsStatusFalseAsync();
+        //}
 
         [HttpGet("GetPage")]
         public async Task<ActionResult<List<Account>>> GetAllAccountsPage([FromQuery] Pagging pagging)
@@ -60,22 +60,11 @@ namespace Project_SWDCarRental.Controllers
             return await _accountService.GetAccountByIdAsync(id);
         }
 
-        //[HttpGet("checkLogin")]
-        //public async Task<IEnumerable<Account>> CheckLogin(string username,string password)
-        //{
-        //    return await _accountService.checkLogin(username,password);
-        //}
         [HttpGet("checkLogin")]
         public ActionResult<Account> CheckLogin(string username, string password)
         {
             return _accountService.checkLogin(username, password);
         }
-
-        //[HttpGet("SearchByLikeName")]
-        //public async Task<IEnumerable<Account>> SearchByLikeName(string fullname)
-        //{
-        //    return await _accountService.Search(fullname);
-        //}
 
         [HttpPost("UpdateId")]
         public async Task<ActionResult<Account>> PostAccountById(string id, [FromBody] Account account)

@@ -10,23 +10,23 @@ using UnitOfWorkPattern.Services.Servies;
 
 namespace Project_SWDCarRental.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class CategoriesController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
+    public class categoriesController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
     {
         private readonly ICategoryService _CategoryService;
 
 
-        public CategoriesController(ICategoryService CategoryService)
+        public categoriesController(ICategoryService CategoryService)
         {
             _CategoryService = CategoryService;
         }
-        [HttpPost]
+        [HttpPost("CreateCategory")]
         public async Task<ActionResult<Category>> CreateCategory([FromBody] Category Category)
         {
             return await _CategoryService.AddCategoryAsync(Category);
         }
-        [HttpGet]
+        [HttpGet("GetBooking")]
         public async Task<ActionResult<List<Category>>> GetAllCategorys()
         {
 

@@ -16,7 +16,7 @@ namespace Project_SWDCarRental.Models
         public string Phone { get; set; }
         public string FullName { get; set; }
         public string AccountId { get; set; }
-
+        public double TotalPayment { get; set; }
         public virtual Account Account { get; set; }
         public virtual ICollection<BookingDetail> BookingDetails { get; set; }
     }

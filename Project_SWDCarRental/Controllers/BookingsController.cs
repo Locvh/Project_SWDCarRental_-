@@ -6,33 +6,33 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project_SWDCarRental.Models;
+using UnitOfWorkPattern.Repository.Models;
 using UnitOfWorkPattern.Services.Servies;
 
 namespace Project_SWDCarRental.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class BookingsController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
+    public class bookingsController : Controller  // gọi các service để thực hiện các nhiệm vụ tương ứng 
     {
         private readonly IBookingService _BookingService;
 
 
-        public BookingsController(IBookingService BookingService)
+        public bookingsController(IBookingService BookingService)
         {
             _BookingService = BookingService;
         }
-        [HttpPost]
+        [HttpPost("CreateBooking")]
         public async Task<ActionResult<Booking>> CreateBooking([FromBody] Booking Booking)
         {
             return await _BookingService.AddBookingAsync(Booking);
         }
-        [HttpGet]
-        public async Task<ActionResult<List<Booking>>> GetAllBookings()
+        [HttpGet("GetBookingPage")]
+        public async Task<ActionResult<List<Booking>>> GetAllBookingsPage([FromQuery] Pagging pagging)
         {
 
-            return await _BookingService.GetAllBookingsAsync();
+            return await _BookingService.GetAllBookingsAsyncPage(pagging);
         }
-
 
         [HttpGet("GetById")]
         public async Task<ActionResult<Booking>> GetBookingById(int id)
