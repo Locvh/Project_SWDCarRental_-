@@ -1,0 +1,15 @@
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\bin\Release\net5.0\UnitOfWorkPattern.Repository.deps.json
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\bin\Release\net5.0\UnitOfWorkPattern.Repository.runtimeconfig.json
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\bin\Release\net5.0\UnitOfWorkPattern.Repository.runtimeconfig.dev.json
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\bin\Release\net5.0\UnitOfWorkPattern.Repository.dll
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\bin\Release\net5.0\ref\UnitOfWorkPattern.Repository.dll
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\bin\Release\net5.0\UnitOfWorkPattern.Repository.pdb
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\obj\Release\net5.0\UnitOfWorkPattern.Repository.csprojAssemblyReference.cache
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\obj\Release\net5.0\UnitOfWorkPattern.Repository.GeneratedMSBuildEditorConfig.editorconfig
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\obj\Release\net5.0\UnitOfWorkPattern.Repository.AssemblyInfoInputs.cache
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\obj\Release\net5.0\UnitOfWorkPattern.Repository.AssemblyInfo.cs
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\obj\Release\net5.0\UnitOfWorkPattern.Repository.csproj.CoreCompileInputs.cache
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\obj\Release\net5.0\UnitOfWorkPattern.Repository.dll
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\obj\Release\net5.0\ref\UnitOfWorkPattern.Repository.dll
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\obj\Release\net5.0\UnitOfWorkPattern.Repository.pdb
+M:\Project_SWDCarRental\UnitOfWorkPattern.Repository\obj\Release\net5.0\UnitOfWorkPattern.Repository.genruntimeconfig.cache
