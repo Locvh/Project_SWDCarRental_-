@@ -31,38 +31,32 @@ namespace UnitOfWorkPattern.Repository.Repositories
             return await GetAll().FirstOrDefaultAsync(x => x.AccountId == id);
         }
 
-        public async Task<List<Account>> GetAllAccountsAsync()
-        {
-            return await GetAll().Where(x => x.Status == true).ToListAsync();
-        }
+        //public async Task<List<Account>> GetAllAccountsAsync()
+        //{
+        //    return await GetAll().Where(x => x.Status == true).ToListAsync();
+        //}
 
-        public async Task<List<Account>> GetAllAccountsStatusFalseAsync()
-        {
-            return await GetAll().Where(x => x.Status == false).ToListAsync();
-        }
+        //public async Task<List<Account>> GetAllAccountsStatusFalseAsync()
+        //{
+        //    return await GetAll().Where(x => x.Status == false).ToListAsync();
+        //}
 
 
         public async Task<List<Account>> GetAllAccountsAsyncPage(Pagging pagging)
-        {
-            /*Giả sử chúng ta cần lấy kết quả cho trang thứ ba của trang web, đếm 20 là số kết quả chúng ta muốn . 
-             Điều đó có nghĩa là chúng ta muốn bỏ qua (( 3 - 1) * 20 ) = 40 kết quả đầu tiên, sau đó lấy 20 kết quả tiếp theo và trả lại chúng cho người gọi.*/
-
+        {            
             return await GetAll()
-               .Skip((pagging.PageNumber - 1) * pagging.PageSize)
-               .Take(pagging.PageSize)
                .Where(x => x.Status == true)
+               .Skip((pagging.PageNumber - 1) * pagging.PageSize)
+               .Take(pagging.PageSize)               
                .ToListAsync();
         }
 
         public async Task<List<Account>> GetAllAccountsAsyncPageStatusFalse(Pagging pagging)
-        {
-            /*Giả sử chúng ta cần lấy kết quả cho trang thứ ba của trang web, đếm 20 là số kết quả chúng ta muốn . 
-             Điều đó có nghĩa là chúng ta muốn bỏ qua (( 3 - 1) * 20 ) = 40 kết quả đầu tiên, sau đó lấy 20 kết quả tiếp theo và trả lại chúng cho người gọi.*/
-
+        {          
             return await GetAll()
-               .Skip((pagging.PageNumber - 1) * pagging.PageSize)
-               .Take(pagging.PageSize)
                .Where(x => x.Status == false)
+               .Skip((pagging.PageNumber - 1) * pagging.PageSize)
+               .Take(pagging.PageSize)              
                .ToListAsync();
         }
 

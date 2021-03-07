@@ -9,10 +9,7 @@ using UnitOfWorkPattern.Repository.Models;
 namespace UnitOfWorkPattern.Services.Servies
 {
    public interface IUserService
-    {
-        Task<List<User>> GetAllUsersAsync();
-
-        Task<List<User>> GetAllUsersStatusFalseAsync();
+    { 
         Task<User> GetUserByIdAsync(int id);
 
         Task<IEnumerable<User>> Search(string fullname);

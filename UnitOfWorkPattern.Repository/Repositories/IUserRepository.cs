@@ -11,11 +11,6 @@ namespace UnitOfWorkPattern.Repository.Repositories
    public interface IUserRepository : IRepository<User>
     {
         Task<User> GetUserByIdAsync(int id);
-
-
-        Task<List<User>> GetAllUsersAsync();
-
-        Task<List<User>> GetAllUsersStatusFalseAsync();
         Task<List<User>> GetAllUsersAsyncPage(Pagging pagging);
 
         Task<List<User>> GetAllUsersAsyncPageStatusFalse(Pagging pagging);

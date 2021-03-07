@@ -44,7 +44,6 @@ namespace Project_SWDCarRental.Controllers
         [HttpGet("GetPage")]
         public async Task<ActionResult<List<Account>>> GetAllAccountsPage([FromQuery] Pagging pagging)
         {
-
             return await _accountService.GetAllAccountsAsyncPage(pagging);
         }
         [HttpGet("GetPageFalse")]

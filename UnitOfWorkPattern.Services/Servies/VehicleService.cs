@@ -63,16 +63,6 @@ namespace UnitOfWorkPattern.Services.Servies
 
 
 
-        public async Task<List<Vehicle>> GetAllVehiclesAsync()
-        {
-            return await _VehicleRepository.GetAllVehiclesAsync();
-        }
-
-        public async Task<List<Vehicle>> GetAllVehiclesStatusFalseAsync()
-        {
-            return await _VehicleRepository.GetAllVehiclesStatusFalseAsync();
-        }
-
         public async Task<List<Vehicle>> GetAllVehiclesAsyncPage(Pagging pagging)
         {
             return await _VehicleRepository.GetAllVehiclesAsyncPage(pagging);

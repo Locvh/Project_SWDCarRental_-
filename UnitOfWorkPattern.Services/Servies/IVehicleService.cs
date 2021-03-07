@@ -10,9 +10,6 @@ namespace UnitOfWorkPattern.Services.Servies
 {
    public interface IVehicleService
     {
-        Task<List<Vehicle>> GetAllVehiclesAsync();
-
-        Task<List<Vehicle>> GetAllVehiclesStatusFalseAsync();
         Task<Vehicle> GetVehicleByIdAsync(int id);
 
         Task<IEnumerable<Vehicle>> Search(int seat,DateTime checkIn,DateTime checkOut);

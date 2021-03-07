@@ -65,21 +65,10 @@ namespace UnitOfWorkPattern.Services.Servies
             return await _accountRepository.GetAccountByIdAsync(id);
         }
 
-
-
-        public async Task<List<Account>> GetAllAccountsAsync()
-        {
-            return await _accountRepository.GetAllAccountsAsync();
-        }
-
-        public async Task<List<Account>> GetAllAccountsStatusFalseAsync()
-        {
-            return await _accountRepository.GetAllAccountsStatusFalseAsync();
-        }
-
         public async Task<List<Account>> GetAllAccountsAsyncPage(Pagging pagging)
         {
             return await _accountRepository.GetAllAccountsAsyncPage(pagging);
+            
         }
 
         public async Task<List<Account>> GetAllAccountsAsyncPageStatusFalse(Pagging pagging)
@@ -87,19 +76,11 @@ namespace UnitOfWorkPattern.Services.Servies
             return await _accountRepository.GetAllAccountsAsyncPageStatusFalse(pagging);
         }
 
-        //public async Task<IEnumerable<Account>> Search(string fullname)
-        //{
-
-        //    return await _accountRepository.search(fullname);
-        //}
-
         public async Task<Account> UpdateAccountAsync(string id, Account newAccount)
         {
             var account = _unitOfWork.Account.GetByID(id);
             account.Password = newAccount.Password;
             return await _accountRepository.UpdateAsync(account);
         }
-
-
     }
 }

@@ -60,17 +60,6 @@ namespace UnitOfWorkPattern.Services.Servies
         }
 
 
-
-        public async Task<List<User>> GetAllUsersAsync()
-        {
-            return await _UserRepository.GetAllUsersAsync();
-        }
-
-        public async Task<List<User>> GetAllUsersStatusFalseAsync()
-        {
-            return await _UserRepository.GetAllUsersStatusFalseAsync();
-        }
-
         public async Task<List<User>> GetAllUsersAsyncPage(Pagging pagging)
         {
             return await _UserRepository.GetAllUsersAsyncPage(pagging);

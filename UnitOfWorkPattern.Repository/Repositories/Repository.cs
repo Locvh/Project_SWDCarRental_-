@@ -40,8 +40,6 @@ namespace UnitOfWorkPattern.Repository.Repositories
                 await CarRentalContext.AddAsync(entity);
                 await CarRentalContext.SaveChangesAsync();
 
-                // await _dbSet.AddAsync(entity);
-
                 return entity;
             }
             catch (Exception ex)

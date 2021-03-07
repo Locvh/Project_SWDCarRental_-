@@ -16,9 +16,9 @@ namespace UnitOfWorkPattern.Repository.Repositories
         //Task<IEnumerable<Account>> checkLogin(string username, string password);
         ActionResult<Account> checkLogin(string username, string password);
 
-        Task<List<Account>> GetAllAccountsAsync();
+        //Task<List<Account>> GetAllAccountsAsync();
 
-        Task<List<Account>> GetAllAccountsStatusFalseAsync();
+        //Task<List<Account>> GetAllAccountsStatusFalseAsync();
         Task<List<Account>> GetAllAccountsAsyncPage(Pagging pagging);
 
         Task<List<Account>> GetAllAccountsAsyncPageStatusFalse(Pagging pagging);

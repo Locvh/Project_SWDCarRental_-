@@ -12,10 +12,6 @@ namespace UnitOfWorkPattern.Repository.Repositories
     {
         Task<Vehicle> GetVehicleByIdAsync(int id);
 
-
-        Task<List<Vehicle>> GetAllVehiclesAsync();
-
-        Task<List<Vehicle>> GetAllVehiclesStatusFalseAsync();
         Task<List<Vehicle>> GetAllVehiclesAsyncPage(Pagging pagging);
 
         Task<List<Vehicle>> GetAllVehiclesAsyncPageStatusFalse(Pagging pagging);
